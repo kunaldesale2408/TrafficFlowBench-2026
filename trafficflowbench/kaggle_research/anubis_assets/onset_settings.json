@@ -1,0 +1,7 @@
+{
+  "gpu_weight": 0.5,
+  "threshold": 0.55,
+  "proxy": 0.8925201522615316,
+  "train_rows": 616700,
+  "valid_windows": 237
+}

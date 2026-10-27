@@ -1,0 +1,27 @@
+{
+  "id": "honghanhhh/trafficflowbench-lb-0-87141",
+  "id_no": 140577526,
+  "title": "TrafficFlowBench | LB 0.87141",
+  "code_file": "trafficflowbench-lb-0-87141.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "",
+    "anubisyy/trafficflowbench-086517-public-assets"
+  ],
+  "kernel_sources": [
+    "anubisyy/catboost-lgbm-nnls-pipeline-top-50-0-86517",
+    ""
+  ],
+  "competition_sources": [
+    "2026-ieee-big-data-traffic-flow-bench"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:81b1e7c4b4f0f2a7e0a33943c95754b1b7af6b30d65221633a284b6b601cd84a",
+  "machine_shape": "None"
+}

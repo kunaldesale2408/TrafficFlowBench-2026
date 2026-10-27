@@ -1,0 +1,12 @@
+{
+  "rmse_catboost": 1.6000727218094308,
+  "rmse_lightgbm": 1.6247200607510845,
+  "rmse_xgboost": 1.6479759216308594,
+  "rmse_2way_s18": 1.5870109516242208,
+  "rmse_3way_optimal": 1.586494068135326,
+  "weights": {
+    "catboost": 0.6275,
+    "lightgbm": 0.3725,
+    "xgboost": 0.0
+  }
+}

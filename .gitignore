@@ -1,0 +1,70 @@
+# Python virtual environments
+.venv/
+*/.venv/
+venv/
+ENV/
+env/
+
+# Python cache & compiled files
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Competition Data (Download via Kaggle CLI)
+data/
+*/data/
+kaggle_public/
+*/kaggle_public/
+*.tar.gz
+
+# Scratch large caches & parquets
+scratch/*.npz
+scratch/*.parquet
+*/scratch/*.npz
+*/scratch/*.parquet
+
+# CatBoost training artifacts
+catboost_info/
+*/catboost_info/
+
+# Submissions & heavy CSV outputs (>100MB)
+outputs/submissions/
+*/outputs/submissions/
+*.zip
+*.csv
+
+# Heavy model weights and binary profiles (>50MB)
+outputs/models/*.cbm
+outputs/models/*.joblib
+outputs/models/*.npz
+outputs/models/*.txt
+outputs/models/*.json
+!outputs/models/*report.json
+*/outputs/models/*.cbm
+*/outputs/models/*.joblib
+*/outputs/models/*.npz
+*/outputs/models/*.txt
+*/outputs/models/*.json
+!*/outputs/models/*report.json
+
+# Research large assets
+**/kaggle_research/anubis_assets/*.cbm
+
+# Logs
+logs/
+*/logs/
+*.log
+
+# OS & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+*/.vscode/
+.idea/

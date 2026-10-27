@@ -1,0 +1,11 @@
+{
+  "catboost_rmse_speed": 1.6000727218094308,
+  "catboost_rmse_flow": 32.16865900058038,
+  "catboost_s_state": 0.9411913297299944,
+  "lgb_rmse_speed": 1.6742258342178638,
+  "lgb_rmse_flow": 33.51696402912598,
+  "lgb_s_state": 0.9385846799580377,
+  "optimal_lgb_weight": 0.05,
+  "optimal_s_state": 0.9411982321994472,
+  "gain": 6.902469452785276e-06
+}

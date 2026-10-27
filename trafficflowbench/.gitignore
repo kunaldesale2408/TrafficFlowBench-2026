@@ -1,0 +1,27 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data
+data/kaggle_public/
+
+# Large model and submission artifacts
+outputs/models/*.pkl
+outputs/models/*.txt
+outputs/models/*.joblib
+outputs/submissions/*.csv
+
+# Logs
+logs/*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
