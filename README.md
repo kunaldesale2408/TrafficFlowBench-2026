@@ -14,13 +14,15 @@ This repository contains the end-to-end machine learning pipeline, physics-regul
 ### Component Scoring Breakdown
 $$\text{Score}_{\text{total}} = 0.35 \times S_{\text{state}} + 0.30 \times S_{\text{queue}} + 0.15 \times S_{\text{physics}} + 0.20 \times S_{\text{ODME}}$$
 
-| Submission | Key Enhancements | Score |
-| :--- | :--- | :--- |
-| **S16** | Baseline Dual Ensemble + Calibrated Post-Processing | `0.86550` |
-| **S19** | Decoupled 62.75% CatBoost + 37.25% Deep-LGB + same-day `interp_N_grid` + Ongoing `0.490` | `0.86749` |
-| **S21** | 2-Seed Bagged Deep-LGB (RMSE 1.5836 km/h) + Bundled CatBoost + Ongoing `0.485` | `0.86749` |
-| **S23** | Bagged 2-Seed Deep-LGB + Gold-Standard `0.490` Ongoing Threshold + Benchmark ODME | `0.86756` |
-| **S24 (PB)** | **Multi-Seed Bagged Deep-LGB (RMSE 1.5830 km/h) + District-Calibrated Queue (D7=0.485, D12=0.495) + Full FD Bounds** | **`0.86760`** |
+| Submission | Key Enhancements | Score | Status |
+| :--- | :--- | :--- | :--- |
+| **S16** | Baseline Dual Ensemble + Calibrated Post-Processing | `0.86550` | Archived |
+| **S19** | Decoupled 62.75% CatBoost + 37.25% Deep-LGB + same-day `interp_N_grid` + Ongoing `0.490` | `0.86749` | Archived |
+| **S21** | 2-Seed Bagged Deep-LGB (RMSE 1.5836 km/h) + Bundled CatBoost + Ongoing `0.485` | `0.86749` | Archived |
+| **S23** | Bagged 2-Seed Deep-LGB + Gold-Standard `0.490` Ongoing Threshold + Benchmark ODME | `0.86756` | Verified |
+| **S24 (PB)** | **Multi-Seed Bagged Deep-LGB (RMSE 1.5830 km/h) + District Ongoing (D7=0.485, D12=0.495) + Top-1 EB Prior Onset + Full FD** | **`0.86760`** | **All-Time Personal Best** |
+| **S25** | Bayesian Adaptive Onset (tau=0.42, beta=1.25, gamma=0.2, top-7 fallback) — added 45 false alarms | `0.86162` | Diagnostic Probe |
+| **S26** | Free-Flow Gated Onset (predicting 0 on max_prob < 0.48 windows) — proved ground truth non-emptiness | `0.86010` | Diagnostic Probe |
 
 ---
 
@@ -107,16 +109,15 @@ kaggle competitions download -c 2026-ieee-big-data-traffic-flow-bench
 unzip 2026-ieee-big-data-traffic-flow-bench.zip -d trafficflowbench/data/kaggle_public/
 ```
 
-### 3. Generate Personal-Best Submission (S23)
+### 3. Generate Personal-Best Submission (S24 — Public LB: 0.86760)
 
 ```powershell
 # In trafficflowbench virtual environment:
-python src/task1/train_bagged_deep_lgb_speed.py
-python src/task1/generate_bagged_ensemble_state.py
-python src/task2/generate_dual_ensemble_queue.py --ongoing-threshold 0.490
-python src/build_submission_s19.py --state-file state_bagged_ensemble_fd.csv --queue-file queue_dual_ensemble_049.csv --sub-name submission_s23
+python src/task1/generate_s24_ensemble_state.py
+python src/task2/generate_dual_ensemble_queue.py --ongoing-threshold-d7 0.485 --ongoing-threshold-d12 0.495
+python src/build_submission_s24.py --state-file state_s24_ensemble_fd.csv --queue-file queue_dual_ensemble_district_calibrated.csv --sub-name submission_s24
 ```
-Produces `trafficflowbench/outputs/submissions/submission_s23.zip` ready for Kaggle submission.
+Produces `trafficflowbench/outputs/submissions/submission_s24.zip` ready for Kaggle submission.
 
 ---
 

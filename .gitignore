@@ -27,8 +27,10 @@ kaggle_public/
 # Scratch large caches & parquets
 scratch/*.npz
 scratch/*.parquet
+scratch/*.pkl
 */scratch/*.npz
 */scratch/*.parquet
+*/scratch/*.pkl
 
 # CatBoost training artifacts
 catboost_info/
