@@ -7,7 +7,7 @@ This repository contains the end-to-end machine learning pipeline, physics-regul
 
 ## 🏆 Current Performance & Progression
 
-- **Current Best Public LB Score**: **`0.86756`** (Submission 23)
+- **Current Best Public LB Score**: **`0.86760`** (Submission 24, ref `57761466`)
 - **Competition Leaderboard Target**: > 0.88 - 0.90
 - **Ranking**: Top tier (~#196 / 627+ teams)
 
@@ -19,7 +19,8 @@ $$\text{Score}_{\text{total}} = 0.35 \times S_{\text{state}} + 0.30 \times S_{\t
 | **S16** | Baseline Dual Ensemble + Calibrated Post-Processing | `0.86550` |
 | **S19** | Decoupled 62.75% CatBoost + 37.25% Deep-LGB + same-day `interp_N_grid` + Ongoing `0.490` | `0.86749` |
 | **S21** | 2-Seed Bagged Deep-LGB (RMSE 1.5836 km/h) + Bundled CatBoost + Ongoing `0.485` | `0.86749` |
-| **S23 (PB)** | **Bagged 2-Seed Deep-LGB + Gold-Standard `0.490` Ongoing Threshold + Benchmark ODME** | **`0.86756`** |
+| **S23** | Bagged 2-Seed Deep-LGB + Gold-Standard `0.490` Ongoing Threshold + Benchmark ODME | `0.86756` |
+| **S24 (PB)** | **Multi-Seed Bagged Deep-LGB (RMSE 1.5830 km/h) + District-Calibrated Queue (D7=0.485, D12=0.495) + Full FD Bounds** | **`0.86760`** |
 
 ---
 

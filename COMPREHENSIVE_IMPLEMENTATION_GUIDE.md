@@ -1,7 +1,7 @@
 # TrafficFlowBench 2026 — Comprehensive Implementation & Architecture Guide
 ## Team FlowSync — 2026 IEEE Big Data Cup
-**Current Best Leaderboard Score**: **`0.86756`** (Rank: Top ~196 / 627+ teams)  
-**Last Updated**: October 27, 2026  
+**Current Best Leaderboard Score**: **`0.86760`** (Rank: Top ~196 / 627+ teams)  
+**Last Updated**: October 29, 2026  
 **Repository**: [kunaldesale2408/TrafficFlowBench-2026](https://github.com/kunaldesale2408/TrafficFlowBench-2026)  
 
 ---
@@ -17,7 +17,7 @@
 8. [Submission History & Leaderboard Progression Ledger](#8-submission-history--leaderboard-progression-ledger)
 9. [Experimental Audit: What Worked vs. What Failed](#9-experimental-audit-what-worked-vs-what-failed)
 10. [Repository File Map & Code Directory](#10-repository-file-map--code-directory)
-11. [Step-by-Step Reproduction Guide (Rebuilding PB S23)](#11-step-by-step-reproduction-guide-rebuilding-pb-s23)
+11. [Step-by-Step Reproduction Guide (Rebuilding PB S24)](#11-step-by-step-reproduction-guide-rebuilding-pb-s24)
 12. [Next Improvement Roadmap (>0.88 - 0.90 Target)](#12-next-improvement-roadmap-088---090-target)
 
 ---
@@ -27,10 +27,11 @@
 This document serves as the single source of truth for all engineering, modeling, experimentation, and optimization completed for the **2026 IEEE Big Data Cup: TrafficFlowBench**.
 
 ### Key Achievements to Date:
-- **All-Time Personal Best**: Achieved **`0.86756`** on Public Leaderboard (Submission 23, ref `57706365`), placing Team **FlowSync** in the top 31% globally.
-- **Task 1 Speed RMSE**: Reduced from baseline $1.650\text{ km/h}$ to an all-time low of **$1.5836\text{ km/h}$** via a 2-Seed Bagged 127-Leaf LightGBM + CatBoost corridor blend.
-- **Task 2 Optimal Queue Boundary**: Empirically proved and verified that **`0.490`** is the exact global threshold optimum for the ongoing queue ensemble on the public leaderboard.
-- **Storage & Infrastructure Optimization**: Full codebase committed and pushed to private GitHub ([TrafficFlowBench-2026](https://github.com/kunaldesale2408/TrafficFlowBench-2026)). Cleaned up 16.23 GB of redundant intermediate CSVs, expanding local free space to **73.12 GB**.
+- **All-Time Personal Best**: Achieved **`0.86760`** on Public Leaderboard (Submission 24, ref `57761466`), advancing Team **FlowSync** further up the leaderboard.
+- **Task 1 Speed RMSE**: Reduced from baseline $1.650\text{ km/h}$ to an all-time low of **$1.5830\text{ km/h}$** via a 4-Way Multi-Seed Bagged LightGBM + Bundled CatBoost corridor blend solved via SLSQP continuous simplex optimization.
+- **Task 2 District-Calibrated Queue Boundary**: Implemented specialized district thresholds (`0.485` for high-density District 7 urban corridors and `0.495` for District 12 high-speed corridors) with 88% LightGBM + 12% CatBoost ongoing ensemble.
+- **Task 3 Physics Validation**: Passed 100% of physical compliance checks (0.00% jam density violations, 0 empty-road penalties, 0.0000% FD speed violations).
+- **Storage & Infrastructure Optimization**: Full codebase committed and maintained on private GitHub ([TrafficFlowBench-2026](https://github.com/kunaldesale2408/TrafficFlowBench-2026)). Over 78 GB free space available locally.
 
 ---
 
@@ -232,7 +233,8 @@ By aligning the Non-Negative Least Squares (NNLS) solver strictly with path-leve
 | **S20** | `57704377` | `0.86636` | Tested ongoing threshold `0.500` + onset `0.58` | **Failed**: Over-pruning queues dropped score by 0.0011 |
 | **S21** | `57706091` | `0.86749` | 2-Seed Bagged Deep-LGB (RMSE 1.5836) + Ongoing `0.485` | Confirmed bagged LGB model strength; 0.485 close to peak |
 | **S22** | `57706223` | `0.86684` | 50/50 Ongoing Queue at threshold `0.450` | **Failed**: Lower threshold generated excess false alarms |
-| **S23** | `57706365` | **`0.86756`** | **Bagged 2-Seed Deep-LGB + Gold `0.490` TH + Benchmark ODME** | **All-Time Personal Best (Team FlowSync champion)** |
+| **S23** | `57706365` | `0.86756` | Bagged 2-Seed Deep-LGB + Gold `0.490` TH + Benchmark ODME | Baseline personal best |
+| **S24** | `57761466` | **`0.86760`** | **Multi-Seed Bagged Deep-LGB (RMSE 1.5830) + District-Calibrated Queue (D7=0.485, D12=0.495) + Ref ODME** | **All-Time Personal Best (Team FlowSync champion)** |
 
 ---
 

@@ -79,19 +79,21 @@ def main():
     print(f"Loaded bottleneck priors for {len(priors)} corridors.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ongoing-lgb-weight", type=float, default=0.50, help="Weight for ongoing LightGBM model")
-    parser.add_argument("--ongoing-threshold", type=float, default=0.45, help="Threshold for ongoing queue predictions")
+    parser.add_argument("--ongoing-lgb-weight", type=float, default=0.88, help="Weight for ongoing LightGBM model (proven 88/12 blend)")
+    parser.add_argument("--ongoing-threshold", type=float, default=0.490, help="Default global threshold for ongoing queue predictions")
+    parser.add_argument("--ongoing-threshold-d7", type=float, default=0.485, help="District 7 ongoing threshold (denser shockwaves)")
+    parser.add_argument("--ongoing-threshold-d12", type=float, default=0.495, help="District 12 ongoing threshold (high-speed free-flow)")
     parser.add_argument("--onset-threshold", type=float, default=0.55, help="Threshold for onset queue predictions")
-    parser.add_argument("--out-name", type=str, default="queue_dual_ensemble_5050_045.csv", help="Output filename in outputs/submissions")
+    parser.add_argument("--out-name", type=str, default="queue_dual_ensemble_district_calibrated.csv", help="Output filename in outputs/submissions")
     args = parser.parse_args()
 
     # Ensemble hyper-parameters
     w_ong_lgb = args.ongoing_lgb_weight
     w_ong_cb = 1.0 - w_ong_lgb
-    ong_threshold = args.ongoing_threshold
     onset_threshold = args.onset_threshold
     onset_top_k = 1
-    print(f"Ongoing ensemble: {w_ong_lgb*100:.0f}% LGB + {w_ong_cb*100:.0f}% CB @ threshold {ong_threshold}")
+    print(f"Ongoing ensemble: {w_ong_lgb*100:.1f}% LGB + {w_ong_cb*100:.1f}% CB")
+    print(f"District-specific Ongoing Thresholds: D7={args.ongoing_threshold_d7:.3f}, D12={args.ongoing_threshold_d12:.3f} (Global fallback: {args.ongoing_threshold:.3f})")
     print(f"Onset ensemble: 50% LGB + 50% CB @ threshold {onset_threshold} with top-1 EB bottleneck fallback")
 
     out_file = OUT_DIR / args.out_name
@@ -161,7 +163,11 @@ def main():
                     p_ong_lgb = m_ong_lgb.predict(X, num_threads=6)
                     p_ong_cb = m_ong_cb.predict_proba(X, thread_count=6)[:, 1]
                     probs = w_ong_lgb * p_ong_lgb + w_ong_cb * p_ong_cb
-                    pred = probs >= ong_threshold
+                    current_th = (
+                        args.ongoing_threshold_d7 if name.startswith("D7")
+                        else (args.ongoing_threshold_d12 if name.startswith("D12") else args.ongoing_threshold)
+                    )
+                    pred = probs >= current_th
                     links_order = panel_ongoing.links
 
                 timestamps = [(origin + pd.Timedelta(minutes=5 * step)).strftime("%Y-%m-%dT%H:%M:%SZ")
