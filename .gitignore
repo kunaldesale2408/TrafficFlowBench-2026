@@ -58,6 +58,8 @@ outputs/models/*.json
 
 # Research large assets
 **/kaggle_research/anubis_assets/*.cbm
+**/kaggle_research/**/output/
+**/kaggle_research/**/output/**
 
 # Logs
 logs/
