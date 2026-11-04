@@ -36,6 +36,14 @@ def check_submission_physics(
     total_rows = len(df)
     print(f"Loaded {total_rows:,} rows.")
 
+    if "task" in df.columns:
+        df = df[df["task"] == "state"].copy()
+
+    if "panel" not in df.columns or "link_id" not in df.columns:
+        print("Merging panel metadata from submission_key.csv...")
+        key = pd.read_csv(release_root / "submission_key.csv", usecols=["submission_id", "panel", "link_id"], low_memory=False)
+        df = df.merge(key, on="submission_id", how="inner")
+
     metrics: Dict[str, float] = {}
 
     # 1. Non-negativity & valid range check
@@ -90,7 +98,8 @@ def check_submission_physics(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Task 3 Physics Compliance Diagnostics")
     parser.add_argument("--submission", type=Path, default=Path("outputs/submissions/state_submission.csv"))
-    parser.add_argument("--release-root", type=Path, default=Path("./data/kaggle_public"))
+    root = Path("./data/kaggle_public") if Path("./data/kaggle_public").exists() else Path("trafficflowbench/data/kaggle_public")
+    parser.add_argument("--release-root", type=Path, default=root)
     args = parser.parse_args()
 
     check_submission_physics(args.submission, args.release_root)
