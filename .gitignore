@@ -72,3 +72,8 @@ Thumbs.db
 .vscode/
 */.vscode/
 .idea/
+
+# Competition data (not redistributable)
+*.csv
+*.parquet
+*.zip
